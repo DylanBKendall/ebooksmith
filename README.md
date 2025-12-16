@@ -162,10 +162,3 @@ This project was built as a collaborative course project with a focus on clean U
 * Real-world AI API integration
 * File generation and format compliance (EPUB/XHTML)
 * Thoughtful UI design and user experience polish
-
----
-
-## License
-
-This project is provided for educational purposes.
-Feel free to explore, modify, and learn from the code.
