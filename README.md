@@ -1,93 +1,171 @@
-# Final Project
+# eBookSmith
 
+**eBookSmith** is a full-stack web application that uses AI to generate original short stories and package them into downloadable eBooks. Users can enter a creative prompt, refine AI-generated content, upload a custom cover image, and export the result as a valid EPUB file. The application also maintains a local library of generated works for browsing and review.
 
+This project was built as a collaborative course project with a focus on clean UI design, practical backend architecture, and real-world web technologies.
 
-## Getting started
+---
 
-To make it easy for you to get started with GitLab, here's a list of recommended next steps.
+## Features
 
-Already a pro? Just edit this README.md and make it your own. Want to make it easy? [Use the template at the bottom](#editing-this-readme)!
+* **AI-Generated Story Content**
 
-## Add your files
+  * Generate original story drafts from a user prompt
+  * Auto-generate titles
+  * Fully editable story text before export
 
-- [ ] [Create](https://docs.gitlab.com/ee/user/project/repository/web_editor.html#create-a-file) or [upload](https://docs.gitlab.com/ee/user/project/repository/web_editor.html#upload-a-file) files
-- [ ] [Add files using the command line](https://docs.gitlab.com/topics/git/add_files/#add-files-to-a-git-repository) or push an existing Git repository with the following command:
+* **EPUB eBook Generation**
+
+  * Converts generated content into valid EPUB format
+  * Supports custom author name and cover image upload
+  * Produces clean XHTML-compliant eBook files
+
+* **Library & Activity Tracking**
+
+  * Logs generated eBooks locally using SQLite
+  * Displays generation history in a searchable, sortable table
+  * Tracks title, author, endpoint used, and timestamp
+
+* **Modern UI & UX**
+
+  * Responsive design using Bootstrap 5
+  * Shared dynamic navbar and footer
+  * Particle fire animation background for visual polish
+  * Carousel landing page and FAQ system
+
+---
+
+## Tech Stack
+
+### Frontend
+
+* HTML5 / CSS3
+* JavaScript (ES6)
+* Bootstrap 5
+* jQuery
+* DataTables
+* tsParticles (fire preset)
+
+### Backend
+
+* PHP
+* SQLite (local logging)
+* REST-style PHP endpoints
+
+### AI Integration
+
+* ChatGPT API (for title and story generation)
+
+---
+
+## Project Structure
 
 ```
-cd existing_repo
-git remote add origin https://gitlab.csi.miamioh.edu/sikdert/final-project.git
-git branch -M main
-git push -uf origin main
+/
+├── index.html              # Landing page
+├── forge.html              # Story & eBook generation UI
+├── activity.html           # Library / history view
+├── help.html               # FAQ & help content
+├── dylanKendall.html       # Developer profile
+├── tanishaSikder.html      # Developer profile
+│
+├── css/
+│   └── style.css           # Global site styling
+│
+├── js/
+│   ├── forge.js            # Forge page logic
+│   ├── getActivity.js      # Library table population
+│   ├── fireParticles.js    # Background animation
+│   └── loadCommonElements.js
+│
+├── php/
+│   ├── generateContent.php # AI story generation
+│   ├── generateTitle.php   # AI title generation
+│   ├── generateEBook.php   # EPUB creation logic
+│   ├── logTransactions.php # SQLite logging
+│   └── RestServer.php      # Backend routing/utilities
+│
+├── assets/
+│   ├── images, videos, logos
+│
+└── database/
+    └── SQLite database file
 ```
 
-## Integrate with your tools
+---
 
-- [ ] [Set up project integrations](https://gitlab.csi.miamioh.edu/sikdert/final-project/-/settings/integrations)
+## How It Works
 
-## Collaborate with your team
+1. The user enters a story prompt on the **Forge** page.
+2. A PHP backend endpoint sends the prompt to the ChatGPT API.
+3. The AI returns generated story content and/or a title.
+4. The user can edit the story, add author info, and upload a cover image.
+5. On submission, the backend:
 
-- [ ] [Invite team members and collaborators](https://docs.gitlab.com/ee/user/project/members/)
-- [ ] [Create a new merge request](https://docs.gitlab.com/ee/user/project/merge_requests/creating_merge_requests.html)
-- [ ] [Automatically close issues from merge requests](https://docs.gitlab.com/ee/user/project/issues/managing_issues.html#closing-issues-automatically)
-- [ ] [Enable merge request approvals](https://docs.gitlab.com/ee/user/project/merge_requests/approvals/)
-- [ ] [Set auto-merge](https://docs.gitlab.com/user/project/merge_requests/auto_merge/)
+   * Formats the content into valid XHTML
+   * Packages everything into an EPUB
+   * Logs the transaction to SQLite
+6. The generated eBook is returned to the user for download.
+7. The **Library** page displays all logged generations.
 
-## Test and Deploy
+---
 
-Use the built-in continuous integration in GitLab.
+## Running Locally
 
-- [ ] [Get started with GitLab CI/CD](https://docs.gitlab.com/ee/ci/quick_start/)
-- [ ] [Analyze your code for known vulnerabilities with Static Application Security Testing (SAST)](https://docs.gitlab.com/ee/user/application_security/sast/)
-- [ ] [Deploy to Kubernetes, Amazon EC2, or Amazon ECS using Auto Deploy](https://docs.gitlab.com/ee/topics/autodevops/requirements.html)
-- [ ] [Use pull-based deployments for improved Kubernetes management](https://docs.gitlab.com/ee/user/clusters/agent/)
-- [ ] [Set up protected environments](https://docs.gitlab.com/ee/ci/environments/protected_environments.html)
+1. Clone the repository:
 
-***
+   ```bash
+   git clone https://github.com/your-username/ebooksmith.git
+   ```
 
-# Editing this README
+2. Run the project using a local PHP server:
 
-When you're ready to make this README your own, just edit this file and use the handy template below (or feel free to structure it however you want - this is just a starting point!). Thanks to [makeareadme.com](https://www.makeareadme.com/) for this template.
+   ```bash
+   php -S localhost:8000
+   ```
 
-## Suggestions for a good README
+3. Open your browser:
 
-Every project is different, so consider which of these sections apply to yours. The sections used in the template are suggestions for most open source projects. Also keep in mind that while a README can be too long and detailed, too long is better than too short. If you think your README is too long, consider utilizing another form of documentation rather than cutting out information.
+   ```
+   http://localhost:8000/index.html
+   ```
 
-## Name
-Choose a self-explaining name for your project.
+> **Note:** An API key is required for AI generation. Configure this securely in the PHP backend (not included in the repo).
 
-## Description
-Let people know what your project can do specifically. Provide context and add a link to any reference visitors might be unfamiliar with. A list of Features or a Background subsection can also be added here. If there are alternatives to your project, this is a good place to list differentiating factors.
+---
 
-## Badges
-On some READMEs, you may see small images that convey metadata, such as whether or not all the tests are passing for the project. You can use Shields to add some to your README. Many services also have instructions for adding a badge.
+## Team & Contributions
 
-## Visuals
-Depending on what you are making, it can be a good idea to include screenshots or even a video (you'll frequently see GIFs rather than actual videos). Tools like ttygif can help, but check out Asciinema for a more sophisticated method.
+### Dylan Kendall
 
-## Installation
-Within a particular ecosystem, there may be a common way of installing things, such as using Yarn, NuGet, or Homebrew. However, consider the possibility that whoever is reading your README is a novice and would like more guidance. Listing specific steps helps remove ambiguity and gets people to using your project as quickly as possible. If it only runs in a specific context like a particular programming language version or operating system or has dependencies that have to be installed manually, also add a Requirements subsection.
+* Backend & full-stack development
+* AI integration (ChatGPT)
+* EPUB generation logic
+* SQLite transaction logging
+* Forge & Library page implementation
+* Global UI theming and component system
 
-## Usage
-Use examples liberally, and show the expected output if you can. It's helpful to have inline the smallest example of usage that you can demonstrate, while providing links to more sophisticated examples if they are too long to reasonably include in the README.
+### Tanisha Sikder
 
-## Support
-Tell people where they can go to for help. It can be any combination of an issue tracker, a chat room, an email address, etc.
+* Frontend development
+* UI/UX design and layout
+* Carousel, FAQ, help system
+* Media creation and visual content
+* HTML/CSS structure and styling
 
-## Roadmap
-If you have ideas for releases in the future, it is a good idea to list them in the README.
+---
 
-## Contributing
-State if you are open to contributions and what your requirements are for accepting them.
+## What This Project Demonstrates
 
-For people who want to make changes to your project, it's helpful to have some documentation on how to get started. Perhaps there is a script that they should run or some environment variables that they need to set. Make these steps explicit. These instructions could also be useful to your future self.
+* Practical full-stack web development
+* Clean separation of frontend and backend responsibilities
+* Real-world AI API integration
+* File generation and format compliance (EPUB/XHTML)
+* Thoughtful UI design and user experience polish
 
-You can also document commands to lint the code or run tests. These steps help to ensure high code quality and reduce the likelihood that the changes inadvertently break something. Having instructions for running tests is especially helpful if it requires external setup, such as starting a Selenium server for testing in a browser.
-
-## Authors and acknowledgment
-Show your appreciation to those who have contributed to the project.
+---
 
 ## License
-For open source projects, say how it is licensed.
 
-## Project status
-If you have run out of energy or time for your project, put a note at the top of the README saying that development has slowed down or stopped completely. Someone may choose to fork your project or volunteer to step in as a maintainer or owner, allowing your project to keep going. You can also make an explicit request for maintainers.
+This project is provided for educational purposes.
+Feel free to explore, modify, and learn from the code.
