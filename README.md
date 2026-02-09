@@ -36,10 +36,25 @@ This project was built as a collaborative course project with a focus on clean U
 ---
 
 ## Gallery
+
+### Home Page - Carousel
+
 ![Home Page Carousel](assets/home_page.png)
+
+### Forge Page
+
 ![Forge Page](assets/forge_page.png)
+
+### Library Page
+
 ![Library Page](assets/library_page.png)
+
+### Help Page - Bug Report
+
 ![Help Page Bug Report](assets/bug_report_page.png)
+
+### Team Page - Dylan Kendall
+
 ![Team Page Dylan Kendall](assets/about_me_page.png)
 
 ---
